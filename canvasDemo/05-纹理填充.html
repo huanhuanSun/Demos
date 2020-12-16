@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+
+
+    <script>
+         /** @type {HTMLCanvasElement} */ 
+
+        let canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let ctx = canvas.getContext('2d');
+        
+
+
+        let img = new Image();
+        img.src = './floor.jpg';
+        img.onload = function () {
+            const pt = ctx.createPattern(img,'repeat');
+            ctx.fillStyle=pt;
+            ctx.fillRect(0,0,canvas.width,canvas.height)
+        }
+    </script>
+</body>
+</html> 

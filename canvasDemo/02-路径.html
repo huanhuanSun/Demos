@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+
+    <script>
+        /** @type {HTMLCanvasElement} */ 
+        const  canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const ctx =  canvas.getContext('2d');
+
+        ctx.lineWidth = 5;//线宽
+        ctx.strokeStyle = 'green'; //描边颜色
+
+        //直线  lineTo(x,y)
+        ctx.beginPath();
+        ctx.moveTo(50,50)
+        ctx.lineTo(100,50)
+        ctx.lineTo(150,100)
+        ctx.closePath();
+        ctx.stroke()
+
+
+        ctx.beginPath();
+        ctx.lineWidth = 10;//线宽
+        ctx.moveTo(200,50);
+        ctx.lineTo(250,50);
+        ctx.lineTo(300,100)
+        ctx.fillStyle="red";//填充颜色
+        ctx.closePath()
+        ctx.stroke();//画轮廓
+        ctx.fill();//填充
+
+
+        ctx.fillStyle="red"
+        ctx.beginPath();
+        ctx.arc(200,200,50,0,Math.PI*2)
+        ctx.fillStyle="red"
+        // ctx.stroke();
+        ctx.fill()
+
+        ctx.lineWidth = 20;
+        ctx.fillStyle="red";        
+        ctx.strokeStyle="green";
+        ctx.beginPath();
+        ctx.arc(300,200,40,0,Math.PI*2)
+        ctx.stroke();
+        ctx.fill()
+
+        ctx.lineWidth = 20;
+        ctx.fillStyle="red";        
+        ctx.strokeStyle="green";
+        ctx.beginPath();
+        ctx.arc(500,200,40,0,Math.PI)
+        ctx.stroke();
+        // ctx.fill()
+
+
+
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#000"
+        ctx.arc(100,350,50,0,Math.PI*2)
+        ctx.moveTo(130,350);
+        ctx.arc(100,350,30,0,Math.PI)
+        ctx.moveTo(85,335);
+        ctx.arc(80,335,5,0,Math.PI*2)
+        ctx.moveTo(125,335);
+        ctx.arc(120,335,5,0,Math.PI*2)
+        ctx.stroke(); 
+
+        
+
+
+
+        
+
+
+
+
+
+    </script>
+</body>
+</html>

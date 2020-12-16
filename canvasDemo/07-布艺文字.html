@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas id="canvas"></canvas>
+
+
+    <script>
+        /** @type {HTMLCanvasElement } */
+        const canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = 500;
+        const ctx = canvas.getContext('2d');
+        
+
+        const text = 'canvas';
+        const [x,y]=  [50,200];
+        ctx.font = "bold 200px arial"
+
+        //实心文字
+        ctx.fillStyle='#a76921';
+        ctx.fillText(text,x,y)
+
+        //填充文字
+        ctx.lineWidth=10;
+        ctx.strokeStyle="#f0d5ac"
+        ctx.strokeText(text,x,y)
+
+        //填充的效果
+        ctx.lineWidth = 1;
+        ctx.strokeStyle="#333"
+        ctx.setLineDash([5])
+        ctx.strokeText(text,x,y);
+        
+        
+        
+    </script>
+
+</body>
+</html>

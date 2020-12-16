@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas id="canvas"></canvas>
+
+    <script>
+        //画布
+        var canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight//200;
+        //画笔
+        var ctx = canvas.getContext('2d')
+
+        /*填充矩形方法：fillRect(x,y,w,h)*/
+        ctx.fillStyle = 'red'//填充颜色
+        ctx.fillRect(
+            //x,y
+            50,50,
+            //w,h
+            400,200
+        )
+
+        /*描边矩形方法：strokeRect(x,y,w,h)*/
+        ctx.strokeStyle = 'red';//描边颜色
+        ctx.lineWidth = 10;//描边宽度
+        ctx.strokeRect(500, 50, 400, 160); 
+
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <hr>
+    <img id="shuidi" src="./Images/shuidi.png" alt="" style="width:100%;"/>
+
+
+    <script>
+        /* @type {HTMLCanvasElement}*/
+        var canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = 500;
+        var ctx = canvas.getContext('2d');
+        
+
+        //偏移坐标系
+        ctx.translate(300,300);
+
+        //
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.quadraticCurveTo(50,-50,50,-100);//右边 二次贝塞尔曲线
+        ctx.arc(0,-100,50,0,Math.PI,true);//顶部半圆
+        ctx.quadraticCurveTo(-50,-50,0,0)//左边 二次贝塞尔曲线
+        ctx.fill();
+        
+
+    </script>
+</body>
+</html>
