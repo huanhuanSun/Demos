@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+
+
+
+
+    <script>
+
+        /** @type  { HTMLCanvasElement } */
+        let canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = 500;
+
+        const ctx = canvas.getContext('2d');
+
+        const len = 8;//帧数
+        const size = 256;//每帧的大小
+        let fm  = 0; //当前帧
+
+        const img = new Image();
+        img.src="./Images/bomb.jpg";
+        img.onload = draw;
+
+
+        function draw(){
+            ctx.drawImage(
+                img,
+                //裁剪位置
+                fm*size,0,
+                //裁剪大小
+                size,size,
+                //位移，缩放
+                0,0,size,size
+            )
+            fm++;
+            if (fm === len) {
+                fm = 0;
+            }
+
+            setTimeout(draw,100)
+        }
+
+
+    </script>
+</body>
+</html>
