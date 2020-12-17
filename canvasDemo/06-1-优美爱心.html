@@ -25,10 +25,11 @@
 
         
         class Heart {
-            constructor(x,y,size){
+            constructor(x,y,size,len){
                 this.x = x || Math.random()*width;
                 this.y = y || Math.random()*height;
                 this.size = size || Math.random()*2+1;
+                this.len = len;
                 //定义爱心坐标数组
                 this.heartArr = new Array();
                 for (let i = 0; i<precision;i++) {
@@ -53,10 +54,25 @@
                 ctx.restore();//返回之前保存过的路径状态和属性
 
             }
+            arrow(){
+                ctx.save();
+                ctx.lineWidth = 5
+                ctx.beginPath();
+                ctx.moveTo(this.x-this.x/2,this.y)
+                ctx.lineTo(this.x +this.len,this.y);
+                ctx.moveTo(this.x+this.len-10,this.y-10)
+                ctx.lineTo(this.x +this.len,this.y);
+                ctx.lineTo(this.x+this.len-10,this.y+10)
+                ctx.stroke();
+                ctx.restore()
+            }
         }
+
+
 
         new Heart(200,200,2).draw();
         new Heart(300,200,1).draw()
+        new Heart(200,200,2,200).arrow()
         
     </script>
 </body>
