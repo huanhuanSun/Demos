@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        /** @type  { HTMLCanvasElement } */
+        let canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.src="./Images/wns.jpg";
+        img.onload = render;
+
+        let size = 10;
+        function render(){
+            const {width,height} = img;
+            ctx.drawImage(img,0,0);
+
+            const imgDt = ctx.getImageData(0,0,width,height);
+            const {data} = imgDt;
+
+            ///行列遍历
+            for(let h= 0; h<height;h+=size){
+                for (let w = 0;w<width;w+=size){
+                    const i = (h*width+w)*4
+                    const [r,g,b] = [
+                        data[i],
+                        data[i+1],
+                        data[i+2],
+                    ]
+                    ctx.fillStyle=`rgb(${r},${g},${b})`;
+                    ctx.fillRect(w,h,size,size)
+                }
+            }
+        }
+    </script>
+</body>
+</html>

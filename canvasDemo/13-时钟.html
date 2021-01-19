@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <hr>
+    <img src="./Images/shizhong.png" alt="">
+
+
+    <script>
+        /** @type  { HTMLCanvasElement } */
+        let canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = 500;
+
+        const ctx = canvas.getContext('2d');
+
+        //一圈的弧度
+        const c = Math.PI*2;
+        const [outColor,innerColor]=['#D63D46','#DB655C']
+        const {width,height} = canvas;
+
+        draw()
+
+        !(function render(){
+            ctx.clearRect(0,0,width,height);
+            //绘图
+            draw();
+            requestAnimationFrame(render);
+        })()
+
+        function draw(){
+            //保存上一次的状态
+            ctx.save();
+            //偏移坐标轴
+            ctx.translate(width/2,height/2);
+
+            //整体旋转
+            ctx.rotate(-Math.PI/2);
+
+            //外圈
+            ctx.save()
+            ctx.lineWidth = 10;
+            ctx.strokeStyle=outColor
+            ctx.beginPath();
+            ctx.arc(0,0,100,0,c)
+            ctx.stroke()
+            ctx.restore();
+
+            //内圈
+            ctx.save()
+            ctx.lineWidth = 15;
+            ctx.strokeStyle=innerColor
+            ctx.beginPath();
+            ctx.arc(0,0,90,0,c)
+            ctx.stroke()
+            ctx.restore();
+
+            //15分钟一个的刻度
+            ctx.save();
+            ctx.lineWidth=10;
+            ctx.strokeStyle = 'red';
+            ctx.beginPath();
+            for(let i=0;i<4;i++){
+                ctx.moveTo(60,0);
+                ctx.lineTo(75, 0);
+                ctx.rotate(c/4)
+            }            
+            ctx.stroke();
+            ctx.restore();
+
+            //5分钟一个的刻度
+            ctx.save();
+            ctx.lineWidth = 6;
+            ctx.strokeStyle = "#A89583"
+            ctx.beginPath();
+            for(let i =0;i<12;i++) {
+                if(!(i%3 === 0)) {
+                    ctx.moveTo(60,0);
+                    ctx.lineTo(75,0);
+                }
+                ctx.rotate(c/12)
+            }
+            ctx.stroke();
+            ctx.restore()
+            
+            //1分钟一个的刻度
+            ctx.save();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#A89583";
+            ctx.beginPath();
+            for(let i =0;i<60;i++) {
+                if(!(i%15 === 0)) {
+                    ctx.moveTo(72,0);
+                    ctx.lineTo(75,0);
+                }
+                ctx.rotate(c/60)
+            }
+            ctx.stroke()
+            ctx.restore();
+
+            //获取当前 时分秒的弧度
+            const {rh,rm,rs}=currRadian();
+            // console.log(rh,rm,rs)
+            //时针
+            ctx.save()
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "#9F8B7A";
+            ctx.rotate(rh)
+            ctx.beginPath()
+            ctx.moveTo(-18,0);
+            ctx.lineTo(40, 0);
+            ctx.stroke()
+            ctx.restore();
+            
+            //分针
+            ctx.save()
+            ctx.lineWidth = 7;
+            ctx.strokeStyle = "#9F8B7A";
+            ctx.rotate(rm)
+            ctx.beginPath()
+            ctx.moveTo(-18,0);
+            ctx.lineTo(50, 0);
+            ctx.stroke()
+            ctx.restore();
+
+            //秒针
+            ctx.save()
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "red";
+            ctx.rotate(rs)
+            ctx.beginPath()
+            ctx.moveTo(-20,0);
+            ctx.lineTo(60, 0);
+            ctx.stroke()
+            ctx.restore();
+
+            //中心小红圈
+            ctx.save();
+            ctx.fillStyle = "red";
+            ctx.beginPath()
+            ctx.arc(0,0,10,0,Math.PI*2);
+            ctx.fill()
+            ctx.restore();
+            ctx.restore()
+        }
+
+        //基于当前时间获取时分秒针的弧度
+        function currRadian() {
+            const date = new Date();
+            let h = date.getHours(); //当前时
+            if(h>12) {h-=12};
+            const m = date.getMinutes();//当前分
+            const s = date.getSeconds();//当前秒
+
+            const rh=c*h/12+c*m/12/60+c*s/12/60/60;
+            //分针旋转弧度
+            const rm=c*m/60+c*s/60/60;
+            //秒针旋转弧度
+            const rs=c*s/60;
+
+            return {rh,rm,rs}
+        }
+
+    </script>
+</body>
+</html>

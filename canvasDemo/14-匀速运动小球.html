@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas')
+        const [width,height] = [window.innerWidth,window.innerHeight];
+        canvas.width = width;
+        canvas.height = height;
+
+
+        const ctx = canvas.getContext('2d');
+
+        /**小球对象*/
+        class Ball{
+            constructor(r=30,color='#00acec'){
+                this.r = r;
+                this.color = color;
+                this.x= 0;
+                this.y = 0;
+            }
+            draw(ctx){
+                const {x,y,r,color} = this;
+                ctx.save();
+                ctx.fillStyle=color;
+                ctx.beginPath();//beginPath
+                ctx.arc(x,y,r,0,Math.PI*2)
+                ctx.fill();
+                ctx.restore()
+            }
+        }
+
+        const ball = new Ball(20);
+        ball.x = canvas.width/2;
+        ball.y = 100;
+        ball.draw(ctx)
+
+        //速度
+        const vy = 2;
+        !(function render(){
+            
+            //清除画布
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ball.y+=vy;
+            ball.draw(ctx)
+
+            if(ball.y >canvas.height){
+                ball.y = 0
+                // return
+            }
+            requestAnimationFrame(render)
+        })()
+
+        
+        
+    </script>
+</body>
+</html>
